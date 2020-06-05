@@ -1,4 +1,4 @@
-import express, { Request, Response, response } from 'express';
+import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 const router = express.Router();
@@ -27,9 +27,5 @@ router.post(
     res.send({});
   }
 );
-
-router.get('/api/users/signup', (req: Request, res: Response) => {
-  res.send('dale');
-});
 
 export { router as signupRouter };
