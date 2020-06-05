@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name of the deployment. Create the pods and guarantee
+  # the recreation of them if they goes down.
+  name: auth-depl
+spec:
+  # Number of pods
+  replicas: 1
+  # This will find all the pods with name 'auth'
+  selector:
+    matchLabels:
+      app: auth
+  # This is a template telling how the pods will behave
+  template:
+    metadata:
+      # The selector match this label
+      labels:
+        app: auth
+    spec:
+      # - stands for an array entry
+      containers:
+        - name: auth
+          image: gabrieldapaz/auth
+---
+apiVersion: v1
+# Kubernetes object. Provides an easy-to-remember URL to
+# access a running container
+
+# Default is Cluster IP
+# Allow comunication to the service from anything else
+# runing only INSIDE of the cluster
+kind: Service
+metadata:
+  name: auth-srv
+# Tell the Service how to behave
+spec:
+  # Tell this Service how to find a set of pods that's supposed
+  # to govern access to
+  selector:
+    app: auth
+  # List out all ports we want to expose on this pod
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
