@@ -8,12 +8,12 @@ import { signupRouter } from './routes/signup';
 
 const app = express();
 app.use(json());
+
+app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 
-app.use(currentUserRouter);
-
 app.listen(3000, () => {
-  console.log('Listening on port 3000');
+  console.log('Listening on port 3000...');
 });
