@@ -21,7 +21,7 @@ spec:
       # - stands for an array entry
       containers:
         - name: auth
-          image: gabrieldapaz/auth
+          image: us.gcr.io/ticketing-dev-279222/auth
 ---
 apiVersion: v1
 # Kubernetes object. Provides an easy-to-remember URL to

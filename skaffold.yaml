@@ -9,12 +9,14 @@ deploy:
 build:
   # When we build a image, it will not try
   # to push to Docker Hub
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: ticketing-dev-279222
   # All the things that will be build
   artifacts:
     # List out the image produced by the auth project
-    - image: gabrieldapaz/auth
+    - image: us.gcr.io/ticketing-dev-279222/auth
       # The folder that contain all the code for this image
       context: auth
       docker:
