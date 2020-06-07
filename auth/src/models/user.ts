@@ -1,4 +1,5 @@
 import mongoose, { mongo } from 'mongoose';
+import { Password } from '../services/passwords';
 
 // An interface that describes the properties
 // that are requried to create a new User
@@ -33,6 +34,23 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+// Middleware implemented in mongoose
+// Any time we attempt to save a document, we're going to execute this function
+// Mongoose as express doesn't have so much to async await syntax
+// Because of that, we need the done statement
+// Another point it's we have to use function instead of the arrow function,
+// to avoid the context be overwritten and would be the context of this file
+// Using the function syntax we have access to the User that we are trying
+// to persist on the database on the key 'this'
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
+});
+
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
