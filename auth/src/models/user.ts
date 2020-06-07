@@ -36,7 +36,9 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
-
+// Generics in TypeScript
+// Essentially allow us to customize the types being used inside of
+// a function, a class or an interface
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 // Now if a we try create a User with attributes that aren't in the interface
