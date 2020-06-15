@@ -1,3 +1,6 @@
+// Create a custom error to the front-end only receive this type of formart regardless
+// the language used on the back-end
+
 export abstract class CustomError extends Error {
   abstract statusCode: number;
 
