@@ -36,11 +36,13 @@ router.post(
         id: user.id,
         email: user.email,
       },
+      // This only defined inside the pod
       process.env.JWT_KEY!
     );
 
     // Store it on session object
     // This session wil be sent to the browser
+    // changed the interface CookieSessionObject to be option some properties 
     req.session = {
       jwt: userJwt,
     };

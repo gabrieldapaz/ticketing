@@ -19,7 +19,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false, // Don't encrypt
-    secure: true, // HTTPS
+    secure: process.env.NODE_ENV !== 'test', // HTTPS
   })
 );
 

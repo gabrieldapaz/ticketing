@@ -5,6 +5,9 @@ import { app } from '../app';
 let mongo: any;
 // A hook that's run before all tests
 beforeAll(async () => {
+  // Not the best way to do it
+  process.env.JWT_KEY = 'dale'
+
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
 
