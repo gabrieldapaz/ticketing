@@ -45,6 +45,9 @@ router.post(
     // changed the interface CookieSessionObject to be option some properties 
     req.session = {
       jwt: userJwt,
+      isChanged: false,
+      isNew: true,
+      isPopulated: true
     };
 
     res.status(201).send(user);

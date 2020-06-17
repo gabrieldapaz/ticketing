@@ -49,6 +49,9 @@ router.post(
     // This session wil be sent to the browser
     req.session = {
       jwt: userJwt,
+      isChanged: false,
+      isNew: false,
+      isPopulated: true
     };
 
     res.status(200).send(existingUser);
