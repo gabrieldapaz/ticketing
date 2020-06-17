@@ -1,12 +1,21 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import request from 'supertest';
 import { app } from '../app';
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      signin(): Promise<string[]>;
+    }
+  }
+}
 
 let mongo: any;
 // A hook that's run before all tests
 beforeAll(async () => {
   // Not the best way to do it
-  process.env.JWT_KEY = 'dale'
+  process.env.JWT_KEY = 'dale';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
@@ -29,3 +38,20 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
 });
+
+global.signin = async () => {
+  const email = 'test@test.com';
+  const password = 'password';
+
+  const response = await request(app)
+    .post('/api/users/signup')
+    .send({
+      email,
+      password,
+    })
+    .expect(201);
+
+  const cookie = response.get('Set-Cookie');
+
+  return cookie;
+};
