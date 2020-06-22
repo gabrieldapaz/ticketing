@@ -1,4 +1,4 @@
-import axios from 'axios';
+import buildClient from '../api/build-client';
 
 // It's not possible to do any data loadind inside of componenets themselves
 // When we render a component with NextJS, during these server side rendering phase,
@@ -16,27 +16,10 @@ const LandingPage = ({ currentUser }) => {
 // Here we can make async requests, generate data whatever we need to do
 // to do to fetch data. This function will be executed on the server
 
-LandingPage.getInitialProps = async ({ req }) => {
-  // windows object only exists on the browser
-  // This will help see whether we are on the browser or on the server
-  if (typeof window === 'undefined') {
-    const { data } = await axios.get(
-      'http://nginx-ingress.nginx-ingress.svc.cluster.local/api/users/currentuser',
-      {
-        headers: req.headers,
-      }
-    );
-    return data;
-  } else {
-    //we are on the browser!
-    // request can be made with a base url of ''
-    const { data } = await axios.get('/api/users/currentuser');
-
-    //currentUser = null or currentUser = {}
-    // response.data has the currentUser property
-    return data;
-  }
-  return {};
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  const { data } = await client.get('/api/users/currentuser');
+  return data;
 };
 
 export default LandingPage;
