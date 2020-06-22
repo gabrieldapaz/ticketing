@@ -20,7 +20,6 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -42,13 +41,8 @@ router.post(
 
     // Store it on session object
     // This session wil be sent to the browser
-    // changed the interface CookieSessionObject to be option some properties 
-    req.session = {
-      jwt: userJwt,
-      isChanged: false,
-      isNew: true,
-      isPopulated: true
-    };
+    // changed the interface CookieSessionObject to be option some properties
+    req.session!.jwt = userJwt;
 
     res.status(201).send(user);
   }

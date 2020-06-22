@@ -7,6 +7,7 @@ import { app } from './app';
 const start = async () => {
   // This function will wait for the connection, if don't connect, will throw an error
   // Instead of using localhost, we use the name of the clusterIP to access mongo db Pod
+  console.log(process.env.JWT_KEY);
 
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY mus be defined');
