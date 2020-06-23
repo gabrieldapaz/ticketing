@@ -1,11 +1,10 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import { validateRequest, BadRequestError } from '@dpztickets/common';
 
 import { Password } from '../services/passwords';
-import { validateRequest } from '../middlewares/validate-request';
 import { User } from '../models/user';
-import { BadRequestError } from '../errors/bad-request-error';
 
 const router = express.Router();
 
@@ -47,7 +46,7 @@ router.post(
 
     // Store it on session object
     // This session wil be sent to the browser
-    req.session!.jwt = userJwt
+    req.session!.jwt = userJwt;
 
     res.status(200).send(existingUser);
   }
