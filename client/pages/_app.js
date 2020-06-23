@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
+import Header from '../components/header';
 
 // When you want to include a global CSS you have to import in this _app file
 // This the single file that is everytime load up when a user come to our application
@@ -7,7 +8,7 @@ import buildClient from '../api/build-client';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <h1>Header! {currentUser.email}</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
