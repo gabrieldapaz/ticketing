@@ -8,8 +8,9 @@ const start = async () => {
   // This function will wait for the connection, if don't connect, will throw an error
   // Instead of using localhost, we use the name of the clusterIP to access mongo db Pod
 
+  // checking the enviroment variables to TypeScript not complaint
   if (!process.env.JWT_KEY) {
-    throw new Error('JWT_KEY must be defined');
+    throw new Error('JWT_KEY mus be defined');
   }
 
   if (!process.env.MONGO_URI) {

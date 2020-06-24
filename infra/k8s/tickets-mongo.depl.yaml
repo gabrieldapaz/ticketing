@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets-mongo
+  # Template for the pod
+  template:
+    metadata:
+      labels:
+        app: tickets-mongo
+    spec:
+      containers:
+        - name: tickets-mongo
+          # Get access from Docker Hub
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-mongo-srv
+spec:
+  # The selector is telling the ClusterIP which pods it is going to govern access to
+  selector:
+    app: tickets-mongo
+  ports:
+      # This name is just for logging purposes
+    - name: db
+      # This is the default port that mongoDB listen
+      port: 27017
+      targetPort: 27017

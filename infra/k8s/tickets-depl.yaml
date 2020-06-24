@@ -3,28 +3,29 @@ kind: Deployment
 metadata:
   # Name of the deployment. Create the pods and guarantee
   # the recreation of them if they goes down.
-  name: auth-depl
+  name: tickets-depl
 spec:
   # Number of pods
   replicas: 1
-  # This will find all the pods with name 'auth'
+  # This will find all the pods with name 'tickets'
   selector:
     matchLabels:
-      app: auth
+      app: tickets
   # This is a template telling how the pods will behave
   template:
     metadata:
       # The selector match this label
       labels:
-        app: auth
+        app: tickets
     spec:
       # - stands for an array entry
       containers:
-        - name: auth
-          image: gabrieldapaz/auth
+        - name: tickets
+          image: gabrieldapaz/tickets
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              # mongodb://database/database
+              value: 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -40,16 +41,16 @@ apiVersion: v1
 # runing only INSIDE of the cluster
 kind: Service
 metadata:
-  name: auth-srv
+  name: tickets-srv
 # Tell the Service how to behave
 spec:
   # Tell this Service how to find a set of pods that's supposed
   # to govern access to
   selector:
-    app: auth
+    app: tickets
   # List out all ports we want to expose on this pod
   ports:
-    - name: auth
+    - name: tickets
       protocol: TCP
       port: 3000
       targetPort: 3000

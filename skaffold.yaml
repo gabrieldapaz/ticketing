@@ -38,3 +38,15 @@ build:
           - src: '**/*.js'
             # And throw to the corresponding path inside the container
             dest: .
+    - image: gabrieldapaz/tickets
+      # The folder that contain all the code for this image
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      # Say how skaffold will handle any files the change in the context
+      sync:
+        manual:
+          # Set of fold that skaffold needs to watch
+          - src: 'src/**/*.ts'
+            # And throw to the corresponding path inside the container
+            dest: .
