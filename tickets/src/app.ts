@@ -4,7 +4,8 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@dpztickets/common';
+import { errorHandler, NotFoundError, currentUser } from '@dpztickets/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 // Ensure that express is aware that is behind a proxy that's nginx
@@ -16,6 +17,10 @@ app.use(
     secure: process.env.NODE_ENV !== 'test', // HTTPS
   })
 );
+
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 // If didn't have the express-async-errors this wouldn't send the request
 // because would need the next
