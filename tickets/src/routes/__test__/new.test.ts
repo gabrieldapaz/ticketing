@@ -39,6 +39,33 @@ it('returns an error if an invalidd title is provided', async () => {
     .expect(400);
 });
 
-it('returns an error if an invalid price is provided', async () => {});
+it('returns an error if an invalid price is provided', async () => {
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      title: 'askdljaskd',
+      price: -10,
+    })
+    .expect(400);
 
-it('creates a ticket with valid inputs', async () => {});
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      title: 400,
+    })
+    .expect(400);
+});
+
+it('creates a ticket with valid inputs', async () => {
+  // add in a check to make a sure ticket was saved
+  
+  await request(app)
+    .post('/api/tickets')
+    .send({
+      title: 'asdjaslkd',
+      price: 20,
+    })
+    .expect(201);
+});
