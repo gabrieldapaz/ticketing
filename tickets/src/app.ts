@@ -8,6 +8,7 @@ import { errorHandler, NotFoundError, currentUser } from '@dpztickets/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
 import { indexTicketRouter } from './routes/index';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 // Ensure that express is aware that is behind a proxy that's nginx
@@ -25,6 +26,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(indexTicketRouter);
+app.use(updateTicketRouter);
 
 // If didn't have the express-async-errors this wouldn't send the request
 // because would need the next
