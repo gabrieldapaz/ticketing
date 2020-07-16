@@ -1,5 +1,7 @@
 import nats from 'node-nats-streaming';
 
+console.clear();
+
 // The client what's going to connect to our NATS Streaming Server
 // and try to exchange information with it
 
