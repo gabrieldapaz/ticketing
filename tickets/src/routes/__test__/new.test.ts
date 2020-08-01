@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
+import { natsWrapper } from '../../nats-wrapper'; // importing the real natsWrapper, but Jest is going to redirect
 
 it('has a route handler listening to /api/tickets for post requests', async () => {
   const response = await request(app).post('/api/tickets').send({});
@@ -70,11 +71,27 @@ it('creates a ticket with valid inputs', async () => {
     .set('Cookie', global.signin())
     .send({
       title,
-      price: 20
+      price: 20,
     })
     .expect(201);
 
   tickets = await Ticket.find({});
   expect(tickets.length).toEqual(1);
   expect(tickets[0].price).toEqual(20);
+  expect(tickets[0].title).toEqual(title);
+});
+
+it('published an event', async () => {
+  const title = 'asdjaslkd';
+
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      title,
+      price: 20,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
