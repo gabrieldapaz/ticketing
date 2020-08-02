@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import { OrderStatus } from '@dpztickets/common'; // Can have VScode erros, just realod the window
 import { TicketDoc } from './ticket';
 
+export { OrderStatus };
+
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
