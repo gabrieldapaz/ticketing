@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // Used just for TypeScript can watch the types of a new record
 interface TicketsAttrs {
@@ -11,6 +12,7 @@ interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
+  verion: number;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
@@ -41,6 +43,8 @@ const ticketSchema = new mongoose.Schema(
     },
   }
 );
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 // Used just for TypeScript can watch the types of a new record
 
