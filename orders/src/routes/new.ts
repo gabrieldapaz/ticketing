@@ -62,7 +62,7 @@ router.post(
     // Publish an event saying that and order was created
     new OrderCreatedPublisher(natsWrapper.client).publish({
       id: order.id,
-      version: order.__v!,
+      version: order.version,
       status: order.status,
       userId: order.userId,
       expiresAt: order.expiresAt.toISOString(), // UTC value. Agnostic from time zones
