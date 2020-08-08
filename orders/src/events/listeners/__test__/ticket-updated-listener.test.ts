@@ -49,7 +49,13 @@ it('finds, updated, and saves a ticket', async () => {
 it('acks the message', async () => {
   const { msg, data, ticket, listener } = await setup();
 
-  await listener.onMessage(data, msg);
+  data.version = 10;
 
-  expect(msg.ack).toHaveBeenCalled();
+  try {
+    await listener.onMessage(data, msg);
+  } catch (err) {}
+
+  expect(msg.ack).not.toHaveBeenCalled();
 });
+
+it('does not call ack if the event has a skipped version number', async () => {});
