@@ -19,8 +19,6 @@
   "license": "ISC",
   "dependencies": {
     "@dpztickets/common": "^1.0.18",
-    "@types/bull": "^3.14.0",
-    "bull": "^3.16.0",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
