@@ -17,8 +17,10 @@ jest.mock('../nats-wrapper');
 let mongo: any;
 // A hook that's run before all tests
 beforeAll(async () => {
+  jest.setTimeout(30000);
   // Not the best way to do it
   process.env.JWT_KEY = 'dale';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
