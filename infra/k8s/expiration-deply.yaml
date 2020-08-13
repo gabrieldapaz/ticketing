@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name of the deployment. Create the pods and guarantee
+  # the recreation of them if they goes down.
+  name: expiration-depl
+spec:
+  # Number of pods
+  replicas: 1
+  # This will find all the pods with name 'expiration'
+  selector:
+    matchLabels:
+      app: expiration
+  # This is a template telling how the pods will behave
+  template:
+    metadata:
+      # The selector match this label
+      labels:
+        app: expiration
+    spec:
+      # - stands for an array entry
+      containers:
+        - name: expiration
+          image: gabrieldapaz/expiration
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: REDIS_HOST
+              value: expiration-redis-srv

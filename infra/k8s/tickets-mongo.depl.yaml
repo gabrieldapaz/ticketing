@@ -27,8 +27,9 @@ spec:
   selector:
     app: tickets-mongo
   ports:
-      # This name is just for logging purposes
+    # This name is just for logging purposes
     - name: db
+      protocol: TCP
       # This is the default port that mongoDB listen
       port: 27017
       targetPort: 27017
