@@ -1,6 +1,7 @@
 // Start the express application
 
 import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const start = async () => {
   // This function will wait for the connection, if don't connect, will throw an error
@@ -33,6 +34,8 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();
   } catch (err) {
     console.log(err);
   }

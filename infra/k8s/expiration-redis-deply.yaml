@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: expiration-redis-depl
+      app: expiration-redis
   # Template for the pod
   template:
     metadata:
       labels:
-        app: expiration-redis-depl
+        app: expiration-redis
     spec:
       containers:
-        - name: expiration-redis-depl
+        - name: expiration-redis
           # Get access from Docker Hub
           image: redis
 ---
