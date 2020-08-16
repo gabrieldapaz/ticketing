@@ -18,10 +18,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dpztickets/common": "^1.0.19",
+    "@dpztickets/common": "^1.0.20",
     "@types/bull": "^3.14.0",
     "bull": "^3.18.0",
-    "node-nats-streaming": "^0.3.2",
+    "node-nats-streaming": "^0.2.6",
     "ts-node-dev": "^1.0.0-pre.57",
     "typescript": "^3.9.3"
   },

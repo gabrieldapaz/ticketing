@@ -1,6 +1,6 @@
 {
   "name": "@dpztickets/common",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -27,6 +27,6 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
-    "node-nats-streaming": "^0.3.2"
+    "node-nats-streaming": "^0.2.6"
   }
 }
