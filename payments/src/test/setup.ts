@@ -1,5 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import request from 'supertest';
+import { app } from '../app';
 import jwt from 'jsonwebtoken';
 
 declare global {
@@ -15,6 +17,7 @@ jest.mock('../nats-wrapper');
 let mongo: any;
 // A hook that's run before all tests
 beforeAll(async () => {
+  jest.setTimeout(30000);
   // Not the best way to do it
   process.env.JWT_KEY = 'dale';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -29,7 +32,6 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  jest.setTimeout(10000);
   jest.clearAllMocks();
 
   const collections = await mongoose.connection.db.collections();

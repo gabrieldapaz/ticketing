@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name of the deployment. Create the pods and guarantee
+  # the recreation of them if they goes down.
+  name: payments-depl
+spec:
+  # Number of pods
+  replicas: 1
+  # This will find all the pods with name 'payments'
+  selector:
+    matchLabels:
+      app: payments
+  # This is a template telling how the pods will behave
+  template:
+    metadata:
+      # The selector match this label
+      labels:
+        app: payments
+    spec:
+      # - stands for an array entry
+      containers:
+        - name: payments
+          image: gabrieldapaz/payments
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: MONGO_URI
+              # mongodb://database/database
+              value: 'mongodb://payments-mongo-srv:27017/payments'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+# Kubernetes object. Provides an easy-to-remember URL to
+# access a running container
+
+# Default is Cluster IP
+# Allow comunication to the service from anything else
+# runing only INSIDE of the cluster
+kind: Service
+metadata:
+  name: payments-srv
+# Tell the Service how to behave
+spec:
+  # Tell this Service how to find a set of pods that's supposed
+  # to govern access to
+  selector:
+    app: payments
+  # List out all ports we want to expose on this pod
+  ports:
+    - name: payments
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
