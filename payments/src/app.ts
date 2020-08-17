@@ -5,6 +5,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@dpztickets/common';
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 // Ensure that express is aware that is behind a proxy that's nginx
@@ -18,6 +19,8 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 // If didn't have the express-async-errors this wouldn't send the request
 // because would need the next

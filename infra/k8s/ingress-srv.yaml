@@ -12,6 +12,11 @@ spec:
       http:
         paths:
           # Any time that someone make a request to our cluster and the request has this path
+          - path: /api/payments/?(.*)
+            # we send the request to this backend
+            backend:
+              serviceName: payments-srv
+              servicePort: 3000
           - path: /api/users/?(.*)
             # we send the request to this backend
             backend:
