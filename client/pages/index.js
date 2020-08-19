@@ -1,5 +1,3 @@
-import buildClient from '../api/build-client';
-
 // It's not possible to do any data loading inside of componenets themselves
 // When we render a component with NextJS, during these server side rendering phase,
 // we don't get any opportunity to make request all of our components are executed
@@ -21,10 +19,8 @@ const LandingPage = ({ currentUser }) => {
 //This getInitialProps is not invoked because another one is
 //declared in __app.js
 
-LandingPage.getInitialProps = async (context) => {
-  const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentuser');
-  return data;
+LandingPage.getInitialProps = async (context, client, currentUser) => {
+  return {};
 };
 
 export default LandingPage;
