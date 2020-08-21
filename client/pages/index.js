@@ -2,6 +2,7 @@
 // When we render a component with NextJS, during these server side rendering phase,
 // we don't get any opportunity to make request all of our components are executed
 // or rendered just one single time.
+import Link from 'next/link';
 
 const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
@@ -9,6 +10,11 @@ const LandingPage = ({ currentUser, tickets }) => {
       <tr key={ticket.id}>
         <td>{ticket.title}</td>
         <td>{ticket.price}</td>
+        <td>
+          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+            <a>View</a>
+          </Link>
+        </td>
       </tr>
     );
   });
@@ -21,6 +27,7 @@ const LandingPage = ({ currentUser, tickets }) => {
           <tr>
             <th>Title</th>
             <th>Price</th>
+            <th>Link</th>
           </tr>
         </thead>
         <tbody>{ticketList}</tbody>
