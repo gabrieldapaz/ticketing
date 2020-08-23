@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd auth && docker build -t gabrieldapaz/auth .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to DockerHub
+        uses: crazy-max/ghaction-docker-login@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - run: docker push gabrieldapaz/auth
