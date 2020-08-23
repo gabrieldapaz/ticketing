@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
-  console.log('Starting up...');
+  console.log('Starting up.....');
   // This function will wait for the connection, if don't connect, will throw an error
   // Instead of using localhost, we use the name of the clusterIP to access mongo db Pod
 
