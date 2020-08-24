@@ -10,7 +10,7 @@ import { Ticket } from './models/ticket';
 import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
 const start = async () => {
-  console.log('Starting....');
+  console.log('Starting......');
   // This function will wait for the connection, if don't connect, will throw an error
   // Instead of using localhost, we use the name of the clusterIP to access mongo db Pod
 
