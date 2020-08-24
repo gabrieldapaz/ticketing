@@ -7,7 +7,7 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
 import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 
 const start = async () => {
-  console.log('Starting...');
+  console.log('Starting');
   // This function will wait for the connection, if don't connect, will throw an error
   // Instead of using localhost, we use the name of the clusterIP to access mongo db Pod
 
