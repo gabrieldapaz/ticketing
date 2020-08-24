@@ -6,6 +6,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
+      - ./infra/k8s-dev/*
 build:
   # When we build a image, it will not try
   # to push to Docker Hub
