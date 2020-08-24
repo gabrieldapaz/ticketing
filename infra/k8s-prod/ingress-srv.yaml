@@ -8,7 +8,7 @@ metadata:
 spec:
   rules:
     # It's a pretend domain name, is only possible to connect from local machine
-    - host: ticketing.dev
+    - host: www.ticketing-app-prod-rec.xyz
       http:
         paths:
           # Any time that someone make a request to our cluster and the request has this path
