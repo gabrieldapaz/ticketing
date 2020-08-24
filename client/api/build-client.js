@@ -12,8 +12,7 @@ export default ({ req }) => {
     // We are on the server
 
     return axios.create({
-      baseURL:
-        'http://my-release-ingress-nginx-controller.default.svc.cluster.local',
+      baseURL: 'www.ticketing-app-prod-rec.xyz',
       headers: req.headers,
     });
   } else {
